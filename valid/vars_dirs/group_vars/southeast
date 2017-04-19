@@ -1,2 +1,2 @@
-halon_system_timeout=30
-self_destruct_countdown=60
+halon_system_timeout: 30
+self_destruct_countdown: 60
