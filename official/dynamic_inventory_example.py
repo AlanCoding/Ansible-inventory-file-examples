@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pprint
+import json
 
 
-pp = pprint.PrettyPrinter(indent=4)
-pp.pprint({
+print json.dumps({
     "databases": {
         "hosts": ["host1.example.com", "host2.example.com"],
         "vars": {
