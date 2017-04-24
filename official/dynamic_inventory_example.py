@@ -4,6 +4,9 @@ import json
 
 
 print json.dumps({
+    "_meta": {
+        "hostvars": {}
+    }
     "databases": {
         "hosts": ["host1.example.com", "host2.example.com"],
         "vars": {
