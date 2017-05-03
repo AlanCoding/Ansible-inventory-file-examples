@@ -31,7 +31,7 @@ print json.dumps({
             }
         }
     },
-    "all": {
+    "ungrouped": {
         "hosts": [
             moover,
             "change_of_vars"
