@@ -9,7 +9,7 @@ print json.dumps({
             "foobar": {}
         }
     },
-    "all": {
+    "ungrouped": {
         "hosts": ["foobar"]
     }
 })

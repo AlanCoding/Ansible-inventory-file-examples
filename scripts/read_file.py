@@ -15,7 +15,7 @@ print json.dumps({
     "_meta": {
         "hostvars": {}
     },
-    "all": {
+    "ungrouped": {
         "hosts": [contents]
     },
 })

@@ -8,7 +8,7 @@ print json.dumps({
     "_meta": {
         "hostvars": {}
     },
-    "all": {
+    "ungrouped": {
         "hosts": [os.environ['ENV_VAR']]
     },
 })
