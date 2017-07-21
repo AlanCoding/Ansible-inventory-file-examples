@@ -1,0 +1,19 @@
+---
+
+- name: Test group contents
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: print out names of all groups
+      debug: msg="{{ item }}"
+      with_items: "{{ groups }}"
+      run_once: True
+
+- name: target group
+  hosts: raleigh
+  gather_facts: false
+  tasks:
+
+    - name: print host name
+      debug: msg="{{ ansible_host }}"
