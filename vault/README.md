@@ -21,6 +21,10 @@ ansible-inventory -i vault/file_vars/inventory.ini --list --ask-vault-pass
 (put in password "password")
 ```
 
+#### Can I use that with vault-id?
+
+Example for this is in `vault/vault_id` folder.
+
 #### More References
 
 https://gist.github.com/tristanfisher/e5a306144a637dc739e7
