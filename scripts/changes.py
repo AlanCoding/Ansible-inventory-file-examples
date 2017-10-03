@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-from time import gmtime, strftime
+from datetime import datetime
 
 # This is a useful script to determine what happens on an inventory import
 # when the contents change. By using a timestamp, we should force the values
@@ -15,7 +15,8 @@ from time import gmtime, strftime
 #      - variable changes its name on every import
 #      - variable changes its value on every import
 
-time_val = strftime("%Y_%m_%d_%H_%M_%S", gmtime())
+
+time_val = datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S.%f')
 
 moover = "moover-{}".format(time_val)
 
