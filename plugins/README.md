@@ -13,7 +13,7 @@ Some plugin examples do not actually return content containing hosts, but
 will modify content from another source. An example:
 
 ```
-ansible-inventory -i plugins/example_hosts/constructed_hosts -i plugins/constructed.yml --list
+ansible-inventory -i plugins/example_hosts/constructed_hosts -i plugins/constructed.config --list
 ```
 
 This shows `constructed.yml` sorting the hosts from `constructed_hosts` into
