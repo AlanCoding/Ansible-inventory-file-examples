@@ -7,6 +7,8 @@ http://docs.ansible.com/ansible/2.4/porting_guide_2.4.html#inventory-plugins
 
 https://github.com/ansible/ansible/blob/devel/lib/ansible/plugins/inventory/virtualbox.py#L39-L48
 
+https://github.com/ansible/ansible/blob/devel/docs/docsite/rst/plugins/inventory.rst
+
 #### Why aren't any hosts showing up?
 
 Some plugin examples do not actually return content containing hosts, but
