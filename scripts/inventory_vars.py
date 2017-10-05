@@ -1,30 +1,31 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import json
 
-# Credit for content goes to Jeff Geerling
-# https://www.jeffgeerling.com/blog/creating-custom-dynamic-inventories-ansible
+'''
+This shows an example of setting variables on the inventory as a whole
+'''
 
 print json.dumps({
-    "group": {
+    "foogroup": {
         "hosts": [
-            "192.168.28.71",
-            "192.168.28.72"
-        ],
+            "foobar",
+            "barfoo"
+        ]
+    },
+    "all": {
         "vars": {
-            "ansible_ssh_user": "johndoe",
-            "ansible_ssh_private_key_file": "~/.ssh/mykey",
-            "example_variable": "value"
+            "all_inventory_var1": "value1",
+            "all_inventory_var2": "value2"
         }
     },
     "_meta": {
         "hostvars": {
-            "192.168.28.71": {
+            "foobar": {
                 "host_specific_var": "bar"
             },
-            "192.168.28.72": {
+            "barfoo": {
                 "host_specific_var": "foo"
             }
         }
     }
-})
+}, indent=4)
