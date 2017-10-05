@@ -1,0 +1,7 @@
+clouds:
+  devstack:
+    auth:
+      auth_url: http://devstack.mycompany.invalid:8293/v2.0/
+      username: admin
+      password: openstackrocks3829
+      project_name: my_project

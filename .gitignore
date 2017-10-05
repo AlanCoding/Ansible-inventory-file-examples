@@ -1,3 +1,4 @@
 subprocess/
+private/
 
 *.pyc
