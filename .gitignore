@@ -1,4 +1,5 @@
 subprocess/
 private/
+scripts/environment/afile.txt
 
 *.pyc
