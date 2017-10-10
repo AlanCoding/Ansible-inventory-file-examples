@@ -24,12 +24,18 @@ print json.dumps({
     "_meta": {
         "hostvars": {
             "change_of_vars": {
-                "static_key": "dynamic_{}".format(time_val),
-                "dynamic_{}".format(time_val): "static_value"
+                "static_key": "host_dynamic_{}".format(time_val),
+                "dynamic_{}".format(time_val): "host_static_value"
             },
             moover: {
                 "static_var": "static_value"
             }
+        }
+    },
+    "all": {
+        "vars": {
+            "static_key": "inventory_dynamic_{}".format(time_val),
+            "dynamic_{}".format(time_val): "inventory_static_value"
         }
     },
     "ungrouped": {
