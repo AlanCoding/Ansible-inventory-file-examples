@@ -3,6 +3,29 @@
 These examples show the use of items specific to the environment where they
 are ran. That means they will often fail if things are not set up in advance.
 
+#### Run all examples with tower-cli
+
+If you want to just see a demo of these examples, you can run the example
+script, which will create all the needed environment-related resources
+inside of Ansible Tower or AWX for you. This includes creating a project
+from this repo and sourcing inventory from it.
+
+```
+pip install ansible-tower-cli
+tower-cli config host <Tower host>
+tower-cli config username <your username>
+tower-cli config password <your password>
+source scripts/environment/tower_cli_setup.sh
+```
+
+After you do this, you should be able to navigate to the 2 inventories created
+
+ - SCM inventory env var example
+ - SCM inventory file example
+
+Within those, you should be able to see hosts that came from the encrypted
+variables stored in their respective credentials.
+
 #### env var script
 
 The following command will show "foobar" as a host name, because it was read
