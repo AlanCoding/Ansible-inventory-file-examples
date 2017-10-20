@@ -122,7 +122,9 @@ ansible-doc -t inventory -l
 ansible-doc -t inventory alan
 ```
 
-(currently this is not working)
+(note, the `ansible-doc` commands are fixed as of
+[Ansible PR #31996](https://github.com/ansible/ansible/pull/31996),
+Ansible 2.4.2 or higher is needed)
 
 If that is working, it should be feasible to do the following:
 
