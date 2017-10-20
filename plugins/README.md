@@ -110,3 +110,62 @@ ansible-inventory -i <ansible source location>/contrib/inventory/ec2.py --list
 
 Current testing shows that these methods produce _very near_ the same data,
 although not exactly the same.
+
+### User-defined Plugin
+
+In this case, you have written a plugin yourself, unlike the previous examples
+which all used plugins vendored with Ansible.
+
+```
+export ANSIBLE_INVENTORY_PLUGINS=$(PWD)/plugins/user_plugins/
+ansible-doc -t inventory -l
+ansible-doc -t inventory alan
+```
+
+(currently this is not working)
+
+If that is working, it should be feasible to do the following:
+
+```
+export ANSIBLE_INVENTORY_ENABLED=alan
+ansible-inventory -i top_level_file.ini --list
+```
+
+No matter what inventory file you give it in this case, the output should
+just have a host named "alan".
+
+#### Relative path
+
+If you have a folder named `inventory_plugins` inside your current
+working directory, Ansible will use that.
+
+```
+cd plugins/user_plugins_rel/
+export ANSIBLE_INVENTORY_ENABLED=alan
+ansible-inventory -i foobar.ini --list
+```
+
+result:
+
+```
+ansible-inventory -i foobar.ini --list
+{
+    "_meta": {
+        "hostvars": {
+            "alan": {
+                "ansible_port": 8928
+            }
+        }
+    }, 
+    "all": {
+        "children": [
+            "ungrouped"
+        ]
+    }, 
+    "ungrouped": {
+        "hosts": [
+            "alan"
+        ]
+    }
+}
+```
