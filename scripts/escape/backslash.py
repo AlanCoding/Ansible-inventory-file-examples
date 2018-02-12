@@ -6,6 +6,9 @@ import json
 This tests the acceptance of backslashes
 \\f should be okay
 \f is not necessarily okay, because json.dumps will not dump this
+see:
+https://github.com/ansible/awx/issues/524
+so far, no problems with ansible-inventory have been found with this.
 '''
 
 print json.dumps({
