@@ -1,0 +1,38 @@
+---
+
+- name: print hello world
+  hosts: ghost
+  gather_facts: false
+  tasks:
+
+    - debug: msg="hello world"
+
+
+- name: Debugging playbook
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: print out names of all groups before host add
+      debug: msg="{{ groups }}"
+      run_once: True
+
+    - name: add a host to group barfoo
+      add_host:
+        name: new_host
+        groups: ghost
+
+    - name: print out names of all groups
+      debug: msg="{{ groups }}"
+      run_once: True
+
+    - name: print host variables
+      debug: msg="{{ hostvars['new_host'] }}"
+      run_once: True
+
+- name: print hello world
+  hosts: ghost
+  gather_facts: false
+  tasks:
+
+    - debug: msg="hello world"
