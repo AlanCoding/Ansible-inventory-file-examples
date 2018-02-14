@@ -54,11 +54,11 @@ empty groups created by vars plugins.
 An established example of this is the following.
 
 ```
-ansible-inventory -i ./inventory/partial --list > partial_generated
+ansible-inventory -i scripts/var_files/just_host.py --list --yaml > saved.yaml
 # Test case A
-ansible-playbook -i echo.sh playbooks/minimal_add_host.yml
+ansible-playbook -i saved.yaml debugging/add_host_and_echo.yml 
 # Test case B
-ansible-playbook -i ./inventory/partial playbooks/minimal_add_host.yml
+ansible-playbook -i scripts/var_files/just_host.py debugging/add_host_and_echo.yml 
 ```
 
 Here, the original source inventory is `./inventory/partial`. However, we

@@ -17,7 +17,7 @@
       debug: msg="{{ groups }}"
       run_once: True
 
-    - name: add a host to group barfoo
+    - name: add a host to group ghost
       add_host:
         name: new_host
         groups: ghost
