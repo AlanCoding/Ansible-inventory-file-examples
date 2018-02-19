@@ -15,7 +15,7 @@ print json.dumps({
         }
     },
     "agroup": {
-        "hosts": ["foobar"],
+        "hosts": ["ahost"],
         "vars": {
             "group_var": 2
         }

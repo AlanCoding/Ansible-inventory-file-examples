@@ -6,10 +6,18 @@ import json
 print json.dumps({
     "_meta": {
         "hostvars": {
-            "foobar": {"foovar": "baz"}
+            "foobar": {"host_var": "this is foobar"}
+        }
+    },
+    "all": {
+        "vars": {
+            "inventory_var": "this is an inventory with host and group and inventory vars"
         }
     },
     "southeast": {
-        "hosts": ["foobar"]
+        "hosts": ["foobar"],
+        "vars": {
+            "group_var": "this is southeast, host and humid"
+        }
     }
 })
