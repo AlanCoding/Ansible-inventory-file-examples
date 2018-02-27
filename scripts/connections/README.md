@@ -37,8 +37,12 @@ Reference for doing the cProfile stuff
 
 https://github.com/ansible/ansible/pull/13673
 
+```bash
+pip install pyprof2calltree
 ```
-NUMBER_GROUPS=26 python -m cProfile -o outme $(which ansible-playbook) -i ./scripts/connections/dag_max.py debugging/hello_world.yml
+
+```bash
+NUMBER_GROUPS=25 python -m cProfile -o outme $(which ansible-playbook) -i ./scripts/connections/dag_max.py debugging/hello_world.yml
 pyprof2calltree -i outme
 qcachegrind outme.log
 ```
