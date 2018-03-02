@@ -3,3 +3,4 @@ private/
 scripts/environment/afile.txt
 
 *.pyc
+*.retry
