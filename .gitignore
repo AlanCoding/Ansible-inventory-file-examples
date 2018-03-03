@@ -4,3 +4,6 @@ scripts/environment/afile.txt
 
 *.pyc
 *.retry
+
+outme
+outme.log

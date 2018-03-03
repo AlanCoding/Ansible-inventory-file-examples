@@ -17,3 +17,28 @@ ansible-inventory -i vault/file_vars/inventory.ini --list --yaml
 # script vars - Does pass it through
 ansible-inventory -i scripts/vault/awx_redumper.py --list --yaml
 ```
+
+#### Group vars
+
+from issue, both fail to decrypt
+
+https://github.com/ansible/ansible/issues/32160
+
+```
+# failed to decrypt
+ansible-inventory -i yaml/vault/groupvar_foo.yml --vault-password-file=yaml/vault/bar --list
+# doesn't try to decrypt
+ansible-inventory -i yaml/vault/groupvar_foo.yml --vault-password-file=yaml/vault/bar --list --yaml
+# failed to decrypt
+ansible-playbook -i yaml/vault/groupvar_foo.yml --vault-password-file=yaml/vault/bar debugging/hostvars_print.yml -vvv
+```
+
+```
+# cannot serialize
+ansible-inventory -i yaml/vault/groupvar_artemis.yml --vault-id=alan@scripts/vault/passwords/password --list
+# doesn't try to decrypt
+ansible-inventory -i yaml/vault/groupvar_artemis.yml --vault-id=alan@scripts/vault/passwords/password --list --yaml
+# success decrypting, shows in hostvars
+ansible-playbook -i yaml/vault/groupvar_artemis.yml --vault-id=alan@scripts/vault/passwords/password debugging/hostvars_print.yml -vvv
+```
+
