@@ -79,7 +79,7 @@ for i, key in enumerate(DEFAULTS.keys()):
     except IndexError:
         val = DEFAULTS[key]
     if not isinstance(val, int) and val.endswith('k'):
-        val = 1000*int(val.split('k')[0])
+        val = 1000*float(val.split('k')[0])
     try:
         val = int(val)
     except ValueError:
@@ -91,30 +91,43 @@ N = params['groups']
 Ngc = (N-1)*N/2
 Nhc = params['groups']*params['hosts']
 
-fgg = 1.0*params['groups']/params['group_group']
+if not params['group_group']:
+    fgg = None
+else:
+    # factor of 1/5, because max connections is roughly 1/2 Ng^2
+    fgg = 0.5*params['groups']/params['group_group']
 
-fhg = 1.0*params['groups']/params['host_group']
+if not params['host_group']:
+    fhg = None
+else:
+    fhg = 1.0*params['groups']/params['host_group']
 
 
 DEBUG = False
+if os.getenv('DEBUG', None):
+    DEBUG = True
 
 if DEBUG:
     print ' params '
     print json.dumps(params, indent=4)
     print ' max group-group connections: ' + str(Ngc)
-    print '   one-in-f   ' + str(fgg)
-    print '      actual: ' + str(2*Ngc/fgg)
+    if fgg:
+        print '   one-in-f   ' + str(fgg)
+        print '      actual: ' + str(Ngc/fgg)
+    else:
+        print '   none set   '
     print ' max host-group connections:  ' + str(Nhc)
-    print '   one-in-f   ' + str(fhg)
-    print '      actual: ' + str(Nhc/fhg)
+    if fhg:
+        print '   one-in-f   ' + str(fhg)
+        print '      actual: ' + str(Nhc/fhg)
+    else:
+        print '   none set   '
 
 
-# is_group_group_member = modulo_gen(fgg)
-# is_host_group_member = modulo_gen(fhg)
-if fgg < 1.0:
+if fgg and fgg < 1.0:
     print fgg
     raise Exception('Frequency of group-group membership is too large to make sense')
-if fhg < 1.0:
+if fhg and fhg < 1.0:
     print fhg
     raise Exception('Frequency of host-group membership is too large to make sense')
 
@@ -145,17 +158,21 @@ Ngg = 0
 for i in range(params['groups']):
     gdict = {'hosts': []}
     children = []
-    start_ig_val = copy(ig_mod)
-    while int(ig_mod - start_ig_val) < i:
-        j = int(ig_mod % i)
-        # A group will be a child of one in every <fgg> group
-        # this only applies to the possible mappable groups, which are i<j
-        # which actually makes it kind of complicated
-        children.append('g{}'.format(j))
-        ig_mod += fgg
-    ig_mod -= i
+    if fgg:
+        while int(ig_mod) < i:
+            j = int(ig_mod % i)
+            # A group will be a child of one in every <fgg> group
+            # this only applies to the possible mappable groups, which are i<j
+            # which actually makes it kind of complicated
+            children.append('g{}'.format(j))
+            ig_mod += fgg
+        # Modulo doesn't actually work because each group has an increasing
+        # number of allowable group-group connections, so this creates an
+        # appropriate modulo-like operation
+        ig_mod -= i
     Ngg += len(children)
-    gdict['children'] = children
+    if children:
+        gdict['children'] = children
     if params['vars']:
         gdict['vars'] = example_vars
     r['g{}'.format(i)] = gdict
@@ -185,15 +202,15 @@ for i in range(params['hosts']):
     hname = 'h{}'.format(i)
     if params['vars']:
         r['_meta']['hostvars'][hname] = example_vars
-    start_ih_val = copy(ih_mod)
-    while int(ih_mod - start_ih_val) < params['groups']:
-        j = int(ih_mod % params['groups'])
-        # A host will be a member of one in every <fhg> group
-        ih_mod += fhg
-        if not has_a_home:
-            has_a_home = True
-        Nhg += 1
-        r['g{}'.format(j)]['hosts'].append(hname)
+    if fhg:
+        while ih_mod < i*params['groups']:
+            j = int(ih_mod % params['groups'])
+            # A host will be a member of one in every <fhg> group
+            ih_mod += fhg
+            if not has_a_home:
+                has_a_home = True
+            Nhg += 1
+            r['g{}'.format(j)]['hosts'].append(hname)
     if not has_a_home:
         r['ungrouped']['hosts'].append(hname)
 
