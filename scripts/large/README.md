@@ -26,7 +26,7 @@ export INVENTORY_DIMENSIONS=10k:500:2.0:2.0:5:50
 
 ##### Large host number
 
-![over 9000!](vegeta.jpeg?raw=true)
+![over 9000!](vegeta.jpg?raw=true)
 
 ```
 time INVENTORY_DIMENSIONS=10k:0:0.0:0.0:2:15 ansible-playbook -i scripts/large/large.py debugging/hello_world.yml
