@@ -52,6 +52,30 @@ def vault_constructor(loader, node):
 yaml.add_representer(NaiveVault, vault_representer)
 yaml.add_constructor(u'!vault', vault_constructor)
 
+print ' --- original data ----'
+print script_out
+
+print ' --- loading with python object ---'
+
 python_out = yaml.load(script_out)
-print yaml.dump(python_out, default_flow_style=False)
+print python_out
+
+print ''
+print ' type of vault: ' + str(type(python_out['_meta']['hostvars']['foobar']['should_be_artemis_here']))
+
+
+print ''
+print ' --- dumping that prior content ---'
+
+redumped = yaml.dump(python_out, default_flow_style=False)
+print redumped
+
+
+print ''
+print ' --- reloading that content ---'
+
+python_in = yaml.load(redumped)
+print python_in
+print ''
+print ' type of vault: ' + str(type(python_out['_meta']['hostvars']['foobar']['should_be_artemis_here']))
 
