@@ -160,3 +160,39 @@ Options that need to be considered for their impact on speed:
  - rewrite the plugin to do a multi-pass building
  - change Host `add_group` to only loop over direct parents in recursion
 
+## Writing to standard error
+
+This example tests large output written to stderr.
+
+```
+ansible-inventory -i scripts/large/stderr_5MB.py --list
+```
+
+In this case, Ansible doesn't care that the script write output to stderr.
+
+What if the script stdout data is not parsible _and_ content is
+written to stderr?
+
+This fails and print to stderr.
+It gets very very slow with larger stderr output, so here is some scaling.
+
+```
+# 0.5 MB
+INVENTORY_STDERR=500000 time ansible-inventory -i scripts/large/stderr_and_fail.py --list
+        2.32 real         1.95 user         0.25 sys
+# 1 MB
+INVENTORY_STDERR=1000000 time ansible-inventory -i scripts/large/stderr_and_fail.py --list
+        4.00 real         3.57 user         0.30 sys
+# 2 MB
+INVENTORY_STDERR=2000000 time ansible-inventory -i scripts/large/stderr_and_fail.py --list
+       11.87 real         9.07 user         2.56 sys
+# 3 MB
+INVENTORY_STDERR=3000000 time ansible-inventory -i scripts/large/stderr_and_fail.py --list
+       29.01 real        18.19 user        10.59 sys
+# 4 MB
+INVENTORY_STDERR=4000000 time ansible-inventory -i scripts/large/stderr_and_fail.py --list
+       53.26 real        31.57 user        21.24 sys
+# 5 MB
+       82.56 real        47.82 user        34.10 sys
+```
+
