@@ -193,6 +193,17 @@ INVENTORY_STDERR=3000000 time ansible-inventory -i scripts/large/stderr_and_fail
 INVENTORY_STDERR=4000000 time ansible-inventory -i scripts/large/stderr_and_fail.py --list
        53.26 real        31.57 user        21.24 sys
 # 5 MB
+INVENTORY_STDERR=5000000 time ansible-inventory -i scripts/large/stderr_and_fail.py --list
        82.56 real        47.82 user        34.10 sys
 ```
+
+double-checking with playbook runs here
+
+```
+INVENTORY_STDERR=2000000 time ansible-playbook -i scripts/large/stderr_and_fail.py debugging/hostvars_print.yml
+       11.89 real         9.16 user         2.58 sys
+```
+
+This follows the same timings as the ansible-inventory versions.
+
 
