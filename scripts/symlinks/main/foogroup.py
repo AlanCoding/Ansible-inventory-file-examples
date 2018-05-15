@@ -3,9 +3,11 @@ import json
 
 print json.dumps({
     "_meta": {
-        "hostvars": {},
+        "hostvars": {
+            'afoo': {}
+        },
     },
     "foo": {
-        "hosts": []
+        "hosts": ['afoo']
     }
 })
