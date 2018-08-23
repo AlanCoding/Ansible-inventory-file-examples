@@ -1,0 +1,34 @@
+---
+- hosts: all
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /Users/alancoding/.virtualenvs/ansible/bin/python
+    ansible_connection: local
+  tasks:
+    - name: Write expected inventory path
+      debug: msg="{{ playbook_dir | dirname }}/tower/tower_inventory.yml"
+
+    - name: Create an Inventory
+      tower_inventory:
+        name: my-inventory
+        organization: Default
+        state: present
+        tower_config_file: "{{ playbook_dir | dirname }}/tower/tower_inventory.yml"
+      register: result
+
+    - assert:
+        that:
+          - "result is changed"
+
+    - name: Delete an Inventory
+      tower_inventory:
+        name: my-inventory
+        organization: Default
+        state: absent
+        tower_config_file: "{{ playbook_dir | dirname }}/tower/tower_inventory.yml"
+      register: result
+
+    - assert:
+        that:
+          - "result is changed"
+
