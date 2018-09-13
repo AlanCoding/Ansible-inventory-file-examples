@@ -1,0 +1,9 @@
+node01 ansible_host=foo.invalid
+node02 ansible_host=bar.invalid
+node03 ansible_host=foobar.invalid
+
+[docker]
+node0[1:3]
+
+[gateway]
+node01
