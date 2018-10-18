@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: false
+  vars:
+    hello_world: "hello world!"
+    bad_syntax: '{%NOTASTATEMENT%}'
+  tasks:
+    - debug:
+        var: hello_world
+      when: bad_syntax is defined
