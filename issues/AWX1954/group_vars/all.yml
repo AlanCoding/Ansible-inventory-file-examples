@@ -1,0 +1,9 @@
+awx1954_dict:
+  comment: !unsafe '{#NOTACOMMENT#}'
+  statement: !unsafe '{%NOTASTATEMENT%}'
+  expression: !unsafe '{{NOTANEXPRESSION}}'
+  zabbix: !unsafe net.if.out[{#IFNAME}]
+awx1954_comment: !unsafe '{#NOTACOMMENT#}'
+awx1954_statement: !unsafe '{%NOTASTATEMENT%}'
+awx1954_expression: !unsafe '{{NOTANEXPRESSION}}'
+awx1954_zabbix: !unsafe net.if.out[{#IFNAME}]
