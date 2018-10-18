@@ -1,12 +1,12 @@
 ---
 - hosts: all
   gather_facts: false
-  vars:
-    awx1954_dict:
-      comment: !unsafe '{#NOTACOMMENT#}'
-      statement: !unsafe '{%NOTASTATEMENT%}'
-      expression: !unsafe '{{NOTANEXPRESSION}}'
-      zabbix: !unsafe net.if.out[{#IFNAME}]
+  # vars:
+  #   awx1954_dict:
+  #     comment: !unsafe '{#NOTACOMMENT#}'
+  #     statement: !unsafe '{%NOTASTATEMENT%}'
+  #     expression: !unsafe '{{NOTANEXPRESSION}}'
+  #     zabbix: !unsafe net.if.out[{#IFNAME}]
   tasks:
     - debug:
         var: awx1954_dict
