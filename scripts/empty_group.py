@@ -17,5 +17,8 @@ print json.dumps({
         "vars": {
             "foobar": "hello_world"
         }
+    },
+    "ghost2": {
+        "hosts": []
     }
 })
