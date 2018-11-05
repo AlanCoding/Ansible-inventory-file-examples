@@ -1,0 +1,6 @@
+plugin: tower
+host: https://localhost:8043/
+username: admin
+password: foobar3333
+inventory_id: 6
+verify_ssl: False
