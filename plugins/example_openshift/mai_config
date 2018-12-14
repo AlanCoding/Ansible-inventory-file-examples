@@ -1,0 +1,19 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://my.host.invalid:443
+  name: my-host-invalid:443
+contexts:
+- context:
+    cluster: my-host-invalid:443
+    namespace: default
+    user: rando/my-host-invalid:443
+  name: default/my-host-invalid:443/rando
+current-context: default/my-host-invalid:443/rando
+kind: Config
+preferences: {}
+users:
+- name: rando/my-host-invalid:443
+  user:
+    token: mXXXXXXXXXXXXXXXXXXXXXXXXXXXXXy

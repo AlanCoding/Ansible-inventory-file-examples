@@ -1,0 +1,7 @@
+plugin: openshift
+connections:
+    - host: https://my.host.invalid:8443
+      kubeconfig: mai_config
+      verify_ssl: false
+      namespaces:
+        - mai-namespace
