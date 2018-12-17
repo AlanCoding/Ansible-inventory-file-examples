@@ -1,0 +1,8 @@
+plugin: gcp_compute
+zones:
+  - us-east1-d
+projects:
+  - bar-foo-foo
+filters: null
+service_account_file: example_gce/creds.json
+auth_kind: serviceaccount
