@@ -1,0 +1,21 @@
+plugin: azure_rm
+auth_source: env
+
+# [azure]
+# include_powerstate = yes  # always available now
+# group_by_resource_group = yes
+# group_by_location = yes
+# group_by_tag = yes
+# locations = southcentralus,westus
+# base_source_var = value_of_var
+
+# places hosts in dynamically-created groups based on a variable value.
+keyed_groups:
+# places each host in a group named 'azure_loc_(location name)', depending on the VM's location
+- prefix: azure_loc
+  key: location
+# 
+# # excludes a host from the inventory when any of these expressions is true, can refer to any vars defined on the host
+exclude_host_filters:
+# only returns hosts in eastus region
+- location not in ['eastus']
