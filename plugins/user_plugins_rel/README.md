@@ -33,5 +33,14 @@ was picked up implicitly from the playbook directory. This is how you
 can use custom plugins without juggling absolute paths, and as far as I know,
 this is the only way to do it.
 
+#### Runner under the auto plugin
+
 You can avoid the unnecessary step of specifying the enabled plugins
-with an auto plugin, which I will develop a new example for on its own.
+with an auto plugin, run this from the project root:
+
+```
+ansible-inventory -i plugins/user_plugins_rel/alan.yml --list --playbook-dir=plugins/user_plugins_rel/
+```
+
+This works around the need to enumerate the enabled plugins, because the
+auto plugin will load any plugin in a valid inventory plugin search path.
