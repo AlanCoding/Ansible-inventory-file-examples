@@ -22,3 +22,12 @@ keyed_groups:
     # this creates a group per ec2 architecture and assign hosts to the matching ones (arch_x86_64, arch_sparc, etc)
     - prefix: arch
       key: ec2_architecture
+    # this uses a custom separator
+    - prefix: custom_sep
+      separator: _oooo_
+      key: sort_me
+    # (new feature) this uses unsafe group names
+    - prefix: unsafe
+      separator: "-"
+      key: sort_me2
+
