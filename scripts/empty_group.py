@@ -20,5 +20,8 @@ print json.dumps({
     },
     "ghost2": {
         "hosts": []
+    },
+    "all": {
+        "children": ["ghost3"]
     }
 })
