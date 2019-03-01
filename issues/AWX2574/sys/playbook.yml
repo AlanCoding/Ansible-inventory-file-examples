@@ -1,0 +1,8 @@
+- name: "Deploy something"
+  hosts: group1
+  gather_facts: false
+  connection: local
+  tasks:
+ 
+  - debug: var=tag
+  - debug: var=path
