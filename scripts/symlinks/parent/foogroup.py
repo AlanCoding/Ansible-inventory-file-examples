@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import json
 
-print json.dumps({
+print(json.dumps({
     "_meta": {
         "hostvars": {
             'afoo': {}
@@ -10,4 +10,4 @@ print json.dumps({
     "foo": {
         "hosts": ['afoo']
     }
-})
+}))
