@@ -30,4 +30,7 @@ keyed_groups:
     - prefix: unsafe
       separator: "-"
       key: sort_me2
+    # Group all "tag" groups under a parent group named "tags"
+    - key: tag
+      parent_group: tags
 
