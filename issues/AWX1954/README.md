@@ -103,3 +103,9 @@ The value of this variable is not marked unsafe.
 ./dump_and_read.sh issues/AWX1954/hosts.ini
 Source issues/AWX1954/hosts.ini is reversible.
 ```
+
+also in playbook
+
+```
+ansible-playbook -i issues/AWX1954/hosts.ini issues/AWX1954/test_unsafe.yml
+```
