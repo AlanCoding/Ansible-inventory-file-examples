@@ -96,3 +96,10 @@ This prints out:
 ```
 
 The value of this variable is not marked unsafe.
+
+### Confirmation of fix
+
+```
+./dump_and_read.sh issues/AWX1954/hosts.ini
+Source issues/AWX1954/hosts.ini is reversible.
+```
