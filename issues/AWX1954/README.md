@@ -109,3 +109,10 @@ also in playbook
 ```
 ansible-playbook -i issues/AWX1954/hosts.ini issues/AWX1954/test_unsafe.yml
 ```
+
+Confirm that the dumped and regurgitated version is parsed correctly in playbook.
+
+```
+./dump_and_read.sh issues/AWX1954/hosts.ini
+ansible-playbook -i scripts/read_from_out.py issues/AWX1954/test_unsafe.yml
+```
