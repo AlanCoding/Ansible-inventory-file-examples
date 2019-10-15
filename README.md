@@ -43,3 +43,27 @@ pyprof2calltree -i outme
 qcachegrind outme.log
 ```
 
+### Commands from the root of project
+
+#### Ansible config file example
+
+Inventory plugin path via magic `inventory_plugins` dir:
+
+```
+ansible-inventory -i plugins/config_path/same_dir/cow.yaml --playbook-dir=plugins/config_path/same_dir --list
+```
+
+Inventory plugin path via child directories:
+
+```
+ansible-inventory -i plugins/config_path/sub_dir/cow.yaml --playbook-dir=plugins/config_path/sub_dir/child_dir --list
+```
+
+Inventory plugin path via relative directory and using parent directories:
+
+```
+ansible-inventory -i plugins/config_path/inventory_dir/cow.yaml --playbook-dir=plugins/config_path/other_dir --list
+```
+
+All of these work testing locally.
+
