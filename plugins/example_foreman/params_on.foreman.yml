@@ -1,0 +1,6 @@
+plugin: foreman
+validate_certs: False
+want_hostcollections: True
+want_ansible_ssh_host: True
+want_params: True
+want_facts: True
