@@ -1,0 +1,13 @@
+plugin: aws_ec2
+regions:
+  - us-west-1
+groups:
+  ec2: true
+keyed_groups:
+  - prefix: ""
+    separator: ""
+    key: placement.region
+  - prefix: "unsafe_region_"
+    separator: ""
+    key: placement.region
+    unsafe: true
