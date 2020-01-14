@@ -1,0 +1,5 @@
+- hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - debug: msg="Hello world from {{inventory_hostname}}"
