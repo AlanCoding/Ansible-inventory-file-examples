@@ -56,14 +56,22 @@ ansible-inventory -i plugins/config_path/same_dir/cow.yaml --playbook-dir=plugin
 Inventory plugin path via child directories:
 
 ```
-ansible-inventory -i plugins/config_path/sub_dir/cow.yaml --playbook-dir=plugins/config_path/sub_dir/child_dir --list
+ansible-inventory -i plugins/config_path/sub_dir/cow.yaml --playbook-dir=plugins/config_path/sub_dir --list
 ```
 
 Inventory plugin path via relative directory and using parent directories:
 
 ```
-ansible-inventory -i plugins/config_path/inventory_dir/cow.yaml --playbook-dir=plugins/config_path/other_dir --list
+ansible-inventory -i plugins/config_path/inventory_dir/cow.yaml --playbook-dir=plugins/config_path/inventory_dir --list
 ```
 
 All of these work testing locally.
+
+Debugging process for the final example:
+
+```
+ansible-inventory -i plugins/config_path/inventory_dir/cow.yaml --playbook-dir=plugins/config_path/other_dir --list
+ansible-doc -t inventory -l --playbook-dir=plugins/config_path/inventory_dir
+
+```
 

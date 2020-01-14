@@ -14,7 +14,7 @@ print(json.dumps({
             "inventory_var": "this is an inventory var 日本語"
         }
     },
-    "group_日本語": {
+    "group_日本語찇籸딥햳㸙濮ᚨ麍ڵថ찇籸딥햳㸙濮ᚨ麍ڵថ": {
         "hosts": ["not_unicode"],
         "vars": {
             "group_var": "this is group_var 日本語"
