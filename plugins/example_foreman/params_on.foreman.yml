@@ -1,6 +1,8 @@
 plugin: foreman
 validate_certs: False
+# added in recent PR
 want_hostcollections: True
 want_ansible_ssh_host: True
+# end added in recent PR
 want_params: True
 want_facts: True
