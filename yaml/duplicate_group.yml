@@ -1,0 +1,21 @@
+# adapted from offical docs and issue:
+# https://github.com/ansible/awx/issues/7334
+all: # keys must be unique, i.e. only one 'hosts' per group
+    hosts:
+        test1:
+        test2:
+            host_var: value
+    vars:
+        group_all_var: value
+    children:   # key order does not matter, indentation does
+        customer1:
+            children:
+                cisco:
+                    hosts:
+                        test1:
+        customer2:
+            children:
+                cisco:
+                    hosts:
+                        test2:
+
