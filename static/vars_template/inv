@@ -1,0 +1,2 @@
+host1
+host2 print_this="variable with my var {{my_variable}}"
