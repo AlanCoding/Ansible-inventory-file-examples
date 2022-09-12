@@ -37,11 +37,15 @@ DOCUMENTATION = '''
             section: vars_host_group_vars_reduced
         env:
           - name: ANSIBLE_VARS_PLUGIN_STAGE
-      ignore_vault_errors:
+      vault_error_behavior:
+        description:
+          - Action to take when encountering ansible-vault decryption errors from files in host_vars or group_vars folders.
+          - This includes the case when no vault secrets exist to decrypt.
+        default: error
         env:
-          - name: ANSIBLE_VARS_PLUGIN_IGNORE_VAULT_ERRORS
-        type: bool
-        default: false
+          - name: ANSIBLE_HOST_GROUP_VARS_VAULT_ERROR_BEHAVIOR
+        type: string
+        choices: ['error', 'warn', 'ignore']
       _valid_extensions:
         default: [".yml", ".yaml", ".json"]
         description:
@@ -117,10 +121,10 @@ class VarsModule(BaseVarsPlugin):
                         try:
                             new_data = loader.load_from_file(found, cache=True, unsafe=True)
                         except AnsibleVaultError as exc:
-                            if self.get_option('ignore_vault_errors'):
-                                pass
-                            else:
+                            if self.get_option('vault_error_behavior') == 'error':
                                 raise
+                            elif self.get_option('vault_error_behavior') == 'warn':
+                                self._display.error("Ignoring vault error processing file %s, error: %s" % (to_text(found), exc))
                         if new_data:  # ignore empty files
                             data = combine_vars(data, new_data)
 

@@ -39,7 +39,7 @@ housed in the `vault/file_vars/plugins` folder from the top-level of this repo.
 Run this with:
 
 ```
-ANSIBLE_VARS_PLUGIN_IGNORE_VAULT_ERRORS=true ANSIBLE_VARS_PLUGINS=vault/file_vars/plugins ANSIBLE_VARS_ENABLED=host_group_vars_reduced ansible-inventory -i vault/file_vars/inventory.ini --list --export
+ANSIBLE_HOST_GROUP_VARS_VAULT_ERROR_BEHAVIOR=warn ANSIBLE_VARS_PLUGINS=vault/file_vars/plugins ANSIBLE_VARS_ENABLED=host_group_vars_reduced ansible-inventory -i vault/file_vars/inventory.ini --list --export
 ```
 
 This avoids decrypting the `raleigh` vars but does pull in the `unencrypted` vars,
