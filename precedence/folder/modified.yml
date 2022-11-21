@@ -1,0 +1,10 @@
+a_group:
+  vars:
+    testvar: a
+  hosts:
+    foohost:
+b_group:
+  vars:
+    testvar: b
+  hosts:
+    foohost:

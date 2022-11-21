@@ -1,0 +1,29 @@
+{
+    "_meta": {
+        "hostvars": {}
+    },
+    "a_group": {
+        "hosts": [
+            "foohost"
+        ],
+        "vars": {
+            "ansible_group_priority": 10,
+            "testvar": "a"
+        }
+    },
+    "all": {
+        "children": [
+            "a_group",
+            "b_group",
+            "ungrouped"
+        ]
+    },
+    "b_group": {
+        "hosts": [
+            "foohost"
+        ],
+        "vars": {
+            "testvar": "b"
+        }
+    }
+}

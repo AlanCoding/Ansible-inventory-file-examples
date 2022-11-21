@@ -1,0 +1,11 @@
+a_group:
+  vars:
+    testvar: a
+    ansible_group_priority: 10
+  hosts:
+    foohost:
+b_group:
+  vars:
+    testvar: b
+  hosts:
+    foohost:
