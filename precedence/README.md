@@ -97,3 +97,48 @@ as the source path and then run a job against it.
 It should encounter the same behavior (`testvar` being a, not b)
 because AWX, itself, implements a dumping-loading cycle with the `--export`
 flag as a basic component of its inventory system.
+
+### Depth Sort
+
+Group resolution order is very non-trivial, similar to python MRO complexity.
+This method is the best summary of what happens in my research.
+
+```python
+def sort_groups(groups):
+    return sorted(groups, key=lambda g: (g.depth, g.priority, g.name))
+```
+
+This is called in order to give the full group list (parents and ancestors) of a host.
+The `depth` here increases with the distance from the root "all" group.
+
+An example is given at `depth_win.yml`.
+
+It is established from the prior example that "b_group" will come at
+higher precedence than an "a_group" at the same level due to the alphabetical
+ordering, the `g.name` criteria.
+
+The `sorted` method puts the "higher" value last, which can be "b_group" due
+to being later in the alphabet, or 2 (as opposed to 1), meaning "further down
+the tree" of the group graph.
+In other words, this example shows leaf nodes winning over parent nodes.
+
+In this example the "b" variable wins.
+
+An example to show nuance is given at `depth_win2.yml`.
+In this case, the parent names are switched, so parentage is A->b an B->a.
+The result here isn't surprising, because the parentage doesn't matter.
+
+In this case, too, the "b" variable wins.
+
+Depth is given the highest priority of all, but this is strange.
+Often times, the greatest depth group winning isn't the most intuitive.
+An example at `depth_win3.yml` is given.
+In this case, the parentage is still A->b and B->a, but the b and a vars are removed.
+Remember that in the last example, the "b" group wins, but in this example the "B" group wins.
+This is surprising because adherence to the "path" isn't maintained.
+The parent "B" group is a parent of the lower-precedence "a" group.
+
+In this case, the "B_parent" variable wins.
+
+As the sort suggests, the exact relationships between groups doesn't matter,
+aside from the depth metric that it develops on the groups.

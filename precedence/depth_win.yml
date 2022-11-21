@@ -1,0 +1,18 @@
+b_parent:
+  children:
+    b_group:
+      hosts:
+        foohost:
+      vars:
+        testvar: b
+  vars:
+    testvar: b_parent
+a_parent:
+  children:
+    a_group:
+      vars:
+        testvar: a
+      hosts:
+        foohost:
+  vars:
+    testvar: a_parent
