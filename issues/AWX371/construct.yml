@@ -1,4 +1,8 @@
 plugin: constructed
 strict: true
+use_vars_plugins: true  # https://github.com/ansible/ansible/issues/75365
 groups:
-  shutdown: state | default("running") == "shutdown"
+  shutdown: resolved_state == "shutdown"
+  shutdown_in_product_dev: resolved_state == "shutdown" and account_alias == "product_dev"
+compose:
+  resolved_state: state | default("running")

@@ -4,4 +4,4 @@
   connection: local
   tasks:
     - debug:
-        msg: "Send message to {{ account_owner }} about {{ inventory_hostname }}"
+        msg: "Send message to {{ account_owner }} ({{ account_alias }} rep, account no. {{ account_number }}) that {{ inventory_hostname }} is {{ resolved_state }}"
