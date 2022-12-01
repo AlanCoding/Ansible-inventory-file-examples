@@ -1,0 +1,7 @@
+---
+- hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - debug:
+        msg: "Send message to {{ account_owner }} about {{ inventory_hostname }}"

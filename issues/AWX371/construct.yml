@@ -1,0 +1,4 @@
+plugin: constructed
+strict: true
+groups:
+  shutdown: state | default("running") == "shutdown"
