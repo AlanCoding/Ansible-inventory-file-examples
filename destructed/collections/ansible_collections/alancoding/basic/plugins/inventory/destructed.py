@@ -31,21 +31,11 @@ EXAMPLES = r'''
     host_pattern: host1
 '''
 
-import os
-
-from ansible import constants as C
-from ansible.errors import AnsibleParserError, AnsibleOptionsError
-from ansible.inventory.helpers import get_group_vars
-from ansible.plugins.inventory import BaseInventoryPlugin, Constructable
-from ansible.module_utils._text import to_native
-from ansible.utils.vars import combine_vars
-from ansible.vars.fact_cache import FactCache
-from ansible.vars.plugins import get_vars_from_inventory_sources
-
+from ansible.plugins.inventory import BaseInventoryPlugin
 from ansible.inventory.manager import InventoryManager
 
 
-class InventoryModule(BaseInventoryPlugin, Constructable):
+class InventoryModule(BaseInventoryPlugin):
     """ destroys hosts you do not want using a host_pattern """
 
     NAME = 'destructed'
@@ -54,7 +44,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable):
 
         super(InventoryModule, self).__init__()
 
-        self._cache = FactCache()
+        self._cache = None
 
     def parse(self, inventory, loader, path, cache=False):
         ''' parses the inventory file '''
