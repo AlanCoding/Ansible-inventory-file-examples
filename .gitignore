@@ -4,6 +4,7 @@ scripts/environment/afile.txt
 
 cache/output.json
 cache/side_effect.txt
+cache/cache_out
 
 *.pyc
 *.retry
