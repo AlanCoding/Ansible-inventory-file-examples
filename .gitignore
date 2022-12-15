@@ -2,6 +2,9 @@ subprocess/
 private/
 scripts/environment/afile.txt
 
+cache/output.json
+cache/side_effect.txt
+
 *.pyc
 *.retry
 
