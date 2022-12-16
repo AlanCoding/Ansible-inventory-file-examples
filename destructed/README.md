@@ -131,3 +131,6 @@ what if we cut out the intermediate destructors?
 ```
 time ansible-playbook -i split/split_1.ini -i split/split_2.ini -i split/split_3.ini -i split/split_4.ini -i split/split_5.ini -i split/split_6.ini -i test_host_01.destructed.yml --connection=local ping_once.yml
 ```
+
+That gives a timing of 1 min 25 sec.
+This shows that _the intermediate destructors help_.
