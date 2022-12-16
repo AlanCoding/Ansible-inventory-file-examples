@@ -134,3 +134,35 @@ time ansible-playbook -i split/split_1.ini -i split/split_2.ini -i split/split_3
 
 That gives a timing of 1 min 25 sec.
 This shows that _the intermediate destructors help_.
+
+#### Ansible inventory limit testing
+
+https://github.com/ansible/ansible/pull/79596
+
+```
+time ansible-inventory -i create_10000_hosts.ini --list --export --output=output.json  # 4 sec Ansible devel / 10 sec limit branch
+# rest of timings are from limit branch
+time ansible-inventory -i create_10000_hosts.ini --list --export --limit=test_host_0 --output=output.json  # 2 sec
+time ansible-inventory -i create_100000_hosts.ini --list --export --limit=test_host_0 --output=output.json  # 16.6 sec
+time ansible-inventory -i split/split_1.ini --list --export --limit=test_host_0 --output=output.json  # 17.3 sec
+time ansible-inventory -i split/split_1.ini -i split/split_2.ini --list --export --limit=test_host_0 --output=output.json  # 1 min 3 sec
+time ansible-inventory -i split/split_1.ini -i test_host_01.destructed.yml -i split/split_2.ini --list --export --limit=test_host_0 --output=output.json --playbook-dir=.  # 51 sec
+time ansible-inventory -i split/split_1.ini -i test_host_01.destructed.yml -i split/split_2.ini -i test_host_01.destructed.yml --list --export --limit=test_host_0 --output=output.json --playbook-dir=.  # 8 sec
+```
+
+#### Constructed
+
+Adds the test host to new group "my_test_host".
+
+```
+ansible-inventory -i create_10_hosts.ini -i construct.yml --list --export
+```
+
+so let's repeat prior one, compare to 10 seconds.
+
+```
+time ansible-inventory -i create_10000_hosts.ini -i construct.yml --list --export --output=output.json  # 27 sec
+time ansible-inventory -i create_10000_hosts.ini -i construct.yml --limit=test_host_0 --list --export --output=output.json  # 14 sec
+```
+
+None of this is particularly interesting.

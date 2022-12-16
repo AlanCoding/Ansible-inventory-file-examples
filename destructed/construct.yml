@@ -1,0 +1,6 @@
+plugin: constructed
+strict: true
+groups:
+  my_test_host: my_hostname == "test_host_0"
+compose:
+  my_hostname: inventory_hostname
