@@ -92,3 +92,42 @@ Additionally, the `_play_prereqs` method takes 1.4 seconds.
 This is surprising in the highest, since that's _more time_ that the entire `ansible-playbook`
 run takes for this same inventory input.
 Writing to a file only takes a measley 2 miliseconds.
+
+#### Let's get a little silly
+
+MOAR hosts!
+
+```
+time ansible-playbook -i create_100000_hosts.ini -i test_host_01.destructed.yml --connection=local ping_once.yml  # 4.3 sec
+time ansible-playbook -i create_1000000_hosts.ini -i test_host_01.destructed.yml --connection=local ping_once.yml  # 4.5 min
+```
+
+What if we split it up and destruct every time??
+
+```
+time ansible-playbook -i split/split_1.ini -i test_host_01.destructed.yml --connection=local ping_once.yml  # 4.5 seconds
+```
+
+Now we start adding on more "split" inventories that will get all the hosts filtered out
+ - -i split/split_2.ini -i test_host_01.destructed.yml --> 8.362 s
+ - -i split/split_3.ini -i test_host_01.destructed.yml --> 12.4
+ - -i split/split_4.ini -i test_host_01.destructed.yml --> 16.5
+ - -i split/split_5.ini -i test_host_01.destructed.yml --> 21.7
+ - -i split/split_6.ini -i test_host_01.destructed.yml --> 26.3
+ - -i split/split_7.ini -i test_host_01.destructed.yml
+ - -i split/split_8.ini -i test_host_01.destructed.yml
+ - -i split/split_9.ini -i test_host_01.destructed.yml
+ - -i split/split_10.ini -i test_host_01.destructed.yml
+
+Going to the 5th split, you can see it keeping linearity, about 4 seconds per 100k hosts.
+At about the 6th split, it may be losing linearity, but still unclear.
+
+```
+time ansible-playbook -i split/split_1.ini -i test_host_01.destructed.yml -i split/split_2.ini -i test_host_01.destructed.yml -i split/split_3.ini -i test_host_01.destructed.yml -i split/split_4.ini -i test_host_01.destructed.yml -i split/split_5.ini -i test_host_01.destructed.yml -i split/split_6.ini -i test_host_01.destructed.yml --connection=local ping_once.yml
+```
+
+what if we cut out the intermediate destructors?
+
+```
+time ansible-playbook -i split/split_1.ini -i split/split_2.ini -i split/split_3.ini -i split/split_4.ini -i split/split_5.ini -i split/split_6.ini -i test_host_01.destructed.yml --connection=local ping_once.yml
+```
