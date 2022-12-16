@@ -46,13 +46,12 @@ class InventoryModule(BaseInventoryPlugin, Cacheable):
         inventory_cli.inventory = manager
         inventory_cli.loader = loader
 
-        top = inventory_cli._get_group('all')
-        cache_key = self.get_cache_key(path)
-
-        # some people will not like me for the following line, but you know
+        # This gets called after all sources are parsed, but idempotence
         # ▄▄█████████████████████████████─
         # ▀▀▀───▀█▄▀▄▀████▀──▀█▄▀▄▀████▀──
         # ────────▀█▄█▄█▀──────▀█▄█▄█▀────
         inventory.reconcile_inventory()
 
+        top = inventory_cli._get_group('all')
+        cache_key = self.get_cache_key(path)
         self.cache[cache_key] = inventory_cli.json_inventory(top)
