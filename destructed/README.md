@@ -55,3 +55,40 @@ Yes. We get the same performance.
 We learned some important things here.
 Importantly, you really DO NOT want to pass in a bunch of hosts into `ansible-playbook`
 if you do not intend to automate against them, because that will destroy performance.
+
+Now, how does `ansible-inventory` compare in these cases?
+
+```
+time ansible-inventory -i create_10_hosts.ini --list --export --output=output.json  # 0.43 sec
+time ansible-inventory -i create_100_hosts.ini --list --export --output=output.json  # 0.48 sec
+time ansible-inventory -i create_1000_hosts.ini --list --export --output=output.json  # 0.8 sec
+time ansible-inventory -i create_10000_hosts.ini --list --export --output=output.json  # 3.7 sec
+```
+
+This takes a long time at larger host counts.
+The output file for the 10k hosts case is on the order of 300kb in size... not unexpected.
+You can see that the `ansible-playbook` cases are able to create & destroy the hosts in faster time.
+This is not due to the memory vs. disk distinction you might expect.
+
+But what about the case of AWX? It takes inventory through a load-and-dump cycle.
+How bad is it to re-use a previously dumped inventory?
+To do this, we add a quick script to output the inventory.
+
+```
+time ansible-playbook -i dump_output.py -i test_host_01.destructed.yml --connection=local ping_once.yml  # 1.1 sec
+```
+
+Surprisingly! This does not take any more time before the dump-load cycle.
+This suggests that the bottleneck in the process is ansible-inventory.
+Let's check that. From:
+
+```
+time ansible-inventory -i create_10000_hosts.ini --list --export --output=output.json
+```
+
+We find that 1.77 sec of the total time was spent in generating the _python dict_ for the inventory.
+That is, the `json_inventory` method in `ansible-inventory`.
+Additionally, the `_play_prereqs` method takes 1.4 seconds.
+This is surprising in the highest, since that's _more time_ that the entire `ansible-playbook`
+run takes for this same inventory input.
+Writing to a file only takes a measley 2 miliseconds.

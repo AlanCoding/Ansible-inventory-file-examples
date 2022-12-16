@@ -6,6 +6,8 @@ cache/output.json
 cache/side_effect.txt
 cache/cache_out
 
+destructed/output.json
+
 *.pyc
 *.retry
 
