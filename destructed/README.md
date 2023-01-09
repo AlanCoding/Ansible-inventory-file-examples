@@ -166,3 +166,13 @@ time ansible-inventory -i create_10000_hosts.ini -i construct.yml --limit=test_h
 ```
 
 None of this is particularly interesting.
+What about the impact to `ansible-playbook`?
+Without construction, this is barely slower than 1 second, with...
+
+```
+time ansible-playbook -i create_10000_hosts.ini -i construct.yml -i test_host_01.destructed.yml --connection=local ping_once.yml  # 13 sec
+```
+
+The 100k case took 4 seconds without construction, with construction it takes 2 min 6 seconds.
+So that makes it abundantly clear that the constructed logic dominates.
+This is a notable argument in favor of caching.
