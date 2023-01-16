@@ -10,6 +10,7 @@ destructed/output.json
 
 *.pyc
 *.retry
+*.time
 
 outme
 outme.log

@@ -10,7 +10,9 @@ echo ""
 
 host_scales=(10 100 1000 10000 100000 1000000)
 
-twrap="timeout 30 time -o run_once.time -a"
+timeout_value=120
+
+twrap="timeout ${timeout_value} time -o run_once.time -a"
 
 for host_count in "${host_scales[@]}"
 do
@@ -28,7 +30,7 @@ echo "**************************************************************************
 echo "Running ansible-playbook with --limit to only select a single host"
 echo ""
 
-twrap="timeout 30 time -o playbook_limit.time -a"
+twrap="timeout ${timeout_value} time -o playbook_limit.time -a"
 
 for host_count in "${host_scales[@]}"
 do
@@ -46,7 +48,7 @@ echo "**************************************************************************
 echo "Running ansible-playbook with destructed inventory plugin to limit to a single host"
 echo ""
 
-twrap="timeout 30 time -o playbook_destructed.time -a"
+twrap="timeout ${timeout_value} time -o playbook_destructed.time -a"
 
 for host_count in "${host_scales[@]}"
 do
@@ -64,7 +66,7 @@ echo "**************************************************************************
 echo "Running ansible-inventory against the specified inventory"
 echo ""
 
-twrap="timeout 30 time -o inventory.time -a"
+twrap="timeout ${timeout_value} time -o inventory.time -a"
 
 for host_count in "${host_scales[@]}"
 do
@@ -82,7 +84,7 @@ echo "**************************************************************************
 echo "Running ansible-inventory with the destructed inventory plugin"
 echo ""
 
-twrap="timeout 30 time -o inventory_destructed.time -a"
+twrap="timeout ${timeout_value} time -o inventory_destructed.time -a"
 
 for host_count in "${host_scales[@]}"
 do
@@ -100,7 +102,7 @@ echo "**************************************************************************
 echo "Running ansible-inventory with --limit to limit to one host"
 echo ""
 
-twrap="timeout 30 time -o inventory_limit.time -a"
+twrap="timeout ${timeout_value} time -o inventory_limit.time -a"
 
 for host_count in "${host_scales[@]}"
 do
