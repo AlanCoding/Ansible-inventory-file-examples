@@ -125,3 +125,39 @@ groups:
 ```
 
 `limit`: `filter_var_is_filter_val`
+
+### Ansible facts
+
+Inventory Definition:
+It is hard to give a specification for the inventory for Ansible facts,
+because to populate the system facts you need to run a playbook against
+the inventory that has `gather_facts: true`.
+The actual facts will differ system-to-system.
+
+#### Example problem - filtering on env var
+
+`source_vars`:
+
+```yaml
+plugin: constructed
+strict: true
+groups:
+  hosts_using_xterm: ansible_env.ANSIBLE_STDOUT_CALLBACK == "xterm"
+```
+
+`limit`: `hosts_using_xterm`
+
+#### Example problem - hosts by processor type
+
+Or as another example, filtering Intel hosts
+
+`source_vars`:
+
+```yaml
+plugin: constructed
+strict: true
+groups:
+  intel_hosts: "GenuineIntel" in ansible_processor
+```
+
+`limit`: `intel_hosts`
