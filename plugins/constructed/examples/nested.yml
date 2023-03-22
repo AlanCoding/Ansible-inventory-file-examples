@@ -1,0 +1,9 @@
+all:
+  children:
+    groupA:
+      children:
+        groupB:
+          hosts:
+            host1: {}
+      vars:
+        filter_var: filter_val
