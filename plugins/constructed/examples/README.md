@@ -68,8 +68,37 @@ groups:
 `limit`: `shutdown_in_product_dev`
 
 This input creates one group that only includes host that match both criteria.
-The limit is then just the group name by itself, returning only 1 host,
+The limit is then just the group name by itself, returning just `host2`,
 same as the other approach.
+
+#### Using compose for debugging
+
+In the prior examples, groups are defined by templates and the `strict` option
+will get you feedback in order to debug jinja2 errors.
+However, you may still have to debug the intended function of the templates
+if they are not producing the expected inventory content.
+For example, if a `groups` group has a complex filter
+(like `shutdown_in_product_dev`) but does not contain
+any hosts in the resultant constructed inventory, then the `compose` parameter
+can help debug.
+
+`source_vars`:
+
+```yaml
+plugin: constructed
+strict: true
+groups:
+  shutdown_in_product_dev: state | default("running") == "shutdown" and account_alias == "product_dev"
+compose:
+  resolved_state: state | default("running")
+  is_in_product_dev: account_alias == "product_dev"
+```
+
+`limit`: ``
+
+Running with a blank limit will return all hosts. You can use this to
+inspect specific variables on specific hosts, giving insight into where
+problems in the `groups` lies.
 
 ### Nested groups
 
@@ -103,7 +132,11 @@ This is accomplished by treating that variable the same as any other hostvar.
 
 #### Filter on nested group name
 
-`source_vars`: empty
+`source_vars`:
+
+```yaml
+plugin: constructed
+```
 
 `limit`: `groupA`
 
